@@ -1,7 +1,13 @@
 # PR Response Doc — CineLog Watchlist Feature
 
 ## AI Usage
-<!-- Fill in at the end — how you used AI tools during this project -->
+**Codebase Reading**
+- I used Claude to help explain certain functions, especially for files such as `models.py`, where the SQL-like objects were somewhat unfamiliar to me. Other files contains query methods which I gave to Claude as input to help understand what the query was searching on, and what the actual vs intended results where. I could then compare with with the docstrings to check if the behavior matches the intended functionality.
+
+**Understanding Git Workflow**
+- Since I am somewhat unfamiliar with using `git rebase`, I used Claude at various points to understand the process, and as a debugging tool when the WatchlistEntry model in `models.py` was overwritten. This helped me to prevent permanent edits that might cause unneeded conflicts or issues in the upstream/remote repository.
+
+Note: I did not use AI tools to write my commments and design decisions, although I used Claude to help get an informed view of the codebase, which enabled me to properly defend and change design decisions.
 
 ## Comment 1 — Rename
 **What I did:**
@@ -100,4 +106,30 @@ To remedy this, I manually updated `models.py` and the docstring in `service/wat
 ![alt text](image.png)
 
 ## PR Description
-<!-- Written at the end — feature overview, design decisions, manual testing steps -->
+This PR seeks to incorporate the feature/watchlist branch, which developed an additional **Watchlist Feature** for CineLog.
+
+The watchlist feature is similar to a user's collection, in that it allows users to add movies to a watchlist. The difference is that a collection is made up of movies the user has already watched, while a watchlist can be any list of movies.
+
+The main additions are:
+- `WatchlistEntry` model in `models.py`
+- Route: `routes/watchlist/watchlist.py`
+- Service Logic: `services/watchlist_service.py`
+
+The related endpoints are:
+- GET watchlist/<user_id> - Return the user's watchlist
+- POST watchlist/<user_id>/add - Add a film with film_id to a user's watchlist
+
+**Default Visibility**
+The default visibility of watchlist entries is set to public. Setting a default of `public=True` for WatchlistEntry objects makes it the default for a user's watchlist items to be public, unless set otherwise. This behavior is intentional since it allows for user engagement and visibility, promoting CineLog and creating a more involved community of users.
+
+**Default GET Order**
+The watchlist results are sorted by the `WatchlistEntry` date_added, descending.
+
+Most users will use watchlists as a reference later on when choosing movies to watch next. Recency is often an important factor in choosing a movie. Sorting by when the entry was added also allows the user to view the watchlist as a timeline of sorts. This makes navigation of the watchlist easier compared to an alphabetical ordering, since a user might not have a specific title in mind when going through the watchlist, making alphabetical search less useful.
+
+**Testing**
+- Run `python app.py`
+- Run `pytest tests/` to run written unit tests
+- Use curl commands or interfaces such as Postman to make GET and POST requests to the endpoints mentioned above
+
+
