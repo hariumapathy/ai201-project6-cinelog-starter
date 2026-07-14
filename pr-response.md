@@ -66,13 +66,23 @@ I then ran `pytest tests/ -v` to ensure the entire test suite still passed as ex
 
 ## Comment 4 — Default visibility
 **My position:**
+Setting a default of `public=True` for WatchlistEntry objects makes it the default for a user's watchlist items to be public, unless set otherwise. This behavior is intentional since it allows for user engagement and visibility, promoting CineLog and creating a more involved community of users.
+
 **Reasoning:**
+Many movie logging sites such as Letterboxd contain watchlists and other lists curated by individual users for others to see. Having public watchlists allows other users to gain new recommendations, or follow their favorite users and friends on the platform to see what others are watching. Such public logging and listing activity makes CineLog feel more active, and users will feel that they have a stake in the app/community.
+
 **Tradeoff acknowledged:**
+The immediate flip-side is privacy concerns for users who want to use CineLog to privately manage their watchlists. In such cases, privacy-concerned users may not appreciate a default public visibility. For such users, an option should be provided to change their user-specific watchlist visibility to private.
 
 ## Comment 5 — Sort order
 **My position:**
+I agree with changing the default watchlist order by "date added" rather than alphabetically by the film's title.
+
 **Reasoning:**
+Most users will use watchlists as a reference later on when choosing movies to watch next. Recency is often an important factor in choosing a movie. Sorting by when the entry was added also allows the user to view the watchlist as a timeline of sorts. This makes navigation of the watchlist easier compared to an alphabetical ordering, since a user might not have a specific title in mind when going through the watchlist, making alphabetical search less useful.
+
 **Engagement with reviewer's point:**
+I agree with the reviewer's main point that "Most users want to see what they added recently". There might be other orderings that could make sense, such as the year the movie released, or grouped by genre. However, the date a movie was added to a watchlist will always be available in the database, and is often the default sorting for watchlists in apps such as YouTube.
 
 ## Comment 6 — Rebase
 **What conflicted:**

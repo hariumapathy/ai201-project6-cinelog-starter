@@ -56,11 +56,11 @@ def get_watchlist(user_id):
     Returns:
         list[dict]: List of film dicts with watchlist metadata attached.
     """
+    # default order - date_added, descending
     entries = (
         WatchlistEntry.query
         .filter_by(user_id=user_id)
-        .join(Film)
-        .order_by(Film.title.asc())
+        .order_by(WatchlistEntry.date_added.desc())
         .all()
     )
 
