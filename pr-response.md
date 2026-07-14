@@ -86,8 +86,17 @@ I agree with the reviewer's main point that "Most users want to see what they ad
 
 ## Comment 6 — Rebase
 **What conflicted:**
+Parts of the `.gitignore` conflicted, which stopped the rebase from continuing.
+
 **How I resolved it:**
+I edited the `.gitignore` file, accepting the incoming changes, and then ran `git add .gitignore`, followed by `git rebase --continue`. The remaining commits were applied successfully.
+
 **How I verified no conflict remains:**
+I double checked `git status`, and I also looked at the files to ensure that the Film integer to UUID change was applied in `models.py`. What I noticed is that the `WatchlistEntry` model was missing from `models.py`, and I used Claude to diagnose git command outputs, eventually realizing that the stale `models.py` completely omitted the `WatchlistEntry` model when rebasing, silently overwritting instead of raising a conflict.
+
+To remedy this, I manually updated `models.py` and the docstring in `service/watchlist_service.py` as another commit.
+
+
 
 ## PR Description
 <!-- Written at the end — feature overview, design decisions, manual testing steps -->
