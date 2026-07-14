@@ -96,7 +96,8 @@ I double checked `git status`, and I also looked at the files to ensure that the
 
 To remedy this, I manually updated `models.py` and the docstring in `service/watchlist_service.py` as another commit.
 
-
+## Git Log Online Screenshot
+![alt text](image.png)
 
 ## PR Description
 <!-- Written at the end — feature overview, design decisions, manual testing steps -->
